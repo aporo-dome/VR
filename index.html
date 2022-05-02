@@ -23,14 +23,16 @@
         var scene = document.querySelector("a-scene");
         var box = []
         for (var i = 0; i < 10; i++) {
-            box[i] = add_box(i+" 0 0")
+            box[i] = add_box(i + " 0 0")
             scene.appendChild(box[i]);
         }
-        setInterval(teiki,100);
+        setInterval(teiki, 100);
         var z = 0;
-        function teiki(){
-            z = z + 0.1;
-            box[0].setAttribute("position","0 0 "+z )
+        function teiki() {
+            z = z + 0.02;
+            for (var i = 0; i < 10; i++) {
+                box[i].setAttribute("position", i + " 0 " + z)
+            }
         }
     </script>
 </body>
