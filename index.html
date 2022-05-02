@@ -1,11 +1,38 @@
 <html>
-  <head>
-    <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
-  </head>
-  <body>
+
+<head>
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+</head>
+
+<body>
     <a-scene>
-        <a-sphere position ="0 1.25 -5" radius="1.25" src="earth.jpg" animation="property: rotation; to: 0 360 0;from:0 0 0; dur: 10000; easing: linear; loop: true"></a-sphere>
-        <a-sky src = "space.jpg"></a-sky>
+        <a-sky color="#ECECEC"></a-sky>
     </a-scene>
-  </body>
+    <script>
+        function add_box(position) {
+            var box = document.createElement("a-box");
+            box.setAttribute("color", "#FFFFFF");
+            box.setAttribute("rotation", "0 0 0");
+            box.setAttribute("width", "0.1");
+            box.setAttribute("height", "0.1");
+            box.setAttribute("depth", "0.1");
+            box.setAttribute("position", position);
+            return box;
+        }
+
+        var scene = document.querySelector("a-scene");
+        var box = []
+        for (var i = 0; i < 10; i++) {
+            box[i] = add_box(i+" 0 0")
+            scene.appendChild(box[i]);
+        }
+        setInterval(teiki,100);
+        var z = 0;
+        function teiki(){
+            z = z + 0.1;
+            box[0].setAttribute("position","0 0 "+z )
+        }
+    </script>
+</body>
+
 </html>
