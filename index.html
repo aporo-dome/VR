@@ -20,7 +20,6 @@
             box.setAttribute("position", position);
             return box;
         }
-        var scene = document.querySelector("a-scene");
         AFRAME.registerComponent("input-listen", {
             //初期化
             init: function () {
@@ -29,6 +28,7 @@
                     //コントローラの3次元的な位置を取得
                     var position = this.object3D.getWorldPosition();
                     var box = add_box(position)
+                    var scene = document.querySelector("a-scene");
                     scene.appendChild(box);
                 });
                 //Aボタンを押した時(右手のみ)
