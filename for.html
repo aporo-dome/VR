@@ -1,0 +1,40 @@
+<html>
+
+<head>
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+</head>
+
+<body>
+    <a-scene>
+        <a-sky color="#ECECEC"></a-sky>
+    </a-scene>
+    <script>
+        function add_box(position) {
+            var box = document.createElement("a-box");
+            box.setAttribute("color", "#FFFFFF");
+            box.setAttribute("rotation", "0 0 0");
+            box.setAttribute("width", "0.1");
+            box.setAttribute("height", "0.1");
+            box.setAttribute("depth", "0.1");
+            box.setAttribute("position", position);
+            return box;
+        }
+
+        var scene = document.querySelector("a-scene");
+        var box = []
+        for (var i = 0; i < 10; i++) {
+            box[i] = add_box(i + " 0 0")
+            scene.appendChild(box[i]);
+        }
+        setInterval(teiki, 100);
+        var z = 0;
+        function teiki() {
+            z = z + 0.02;
+            for (var i = 0; i < 10; i++) {
+                box[i].setAttribute("position", i + " 0 " + z)
+            }
+        }
+    </script>
+</body>
+
+</html>

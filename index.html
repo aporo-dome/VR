@@ -1,13 +1,14 @@
+<!DOCTYPE html>
 <html>
 
 <head>
+    <meta charset="utf-8" />
+    <title>VR</title>
+    <!--A-Frame-->
     <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
 </head>
 
 <body>
-    <a-scene>
-        <a-sky color="#ECECEC"></a-sky>
-    </a-scene>
     <script>
         function add_box(position) {
             var box = document.createElement("a-box");
@@ -19,22 +20,38 @@
             box.setAttribute("position", position);
             return box;
         }
-
         var scene = document.querySelector("a-scene");
-        var box = []
-        for (var i = 0; i < 10; i++) {
-            box[i] = add_box(i + " 0 0")
-            scene.appendChild(box[i]);
-        }
-        setInterval(teiki, 100);
-        var z = 0;
-        function teiki() {
-            z = z + 0.02;
-            for (var i = 0; i < 10; i++) {
-                box[i].setAttribute("position", i + " 0 " + z)
-            }
-        }
+        AFRAME.registerComponent("input-listen", {
+            //初期化
+            init: function () {
+                //トリガーを押した時(両手)
+                this.el.addEventListener("triggerdown", function (e) {
+                    //コントローラの3次元的な位置を取得
+                    var position = this.object3D.getWorldPosition();
+                    var box = add_box(position)
+                    scene.appendChild(box);
+                });
+                //Aボタンを押した時(右手のみ)
+                this.el.addEventListener("abuttondown", function (e) {
+                });
+                //Bボタンを押した時(右手のみ)
+                this.el.addEventListener("bbuttondown", function (e) { });
+                //Xボタンを押した時(左手のみ)
+                this.el.addEventListener("xbuttondown", function (e) { });
+                //Xボタンを離した時(左手)
+                this.el.addEventListener("xbuttonup", function (e) { });
+            },
+
+            //毎フレーム更新 (今回は使わない)
+            tick: function () { },
+        });
     </script>
+
+    <a-scene>
+        <!--コントローラ-->
+        <a-entity oculus-touch-controls="hand: left" input-listen> </a-entity>
+        <a-entity oculus-touch-controls="hand: right" input-listen> </a-entity>
+    </a-scene>
 </body>
 
 </html>
